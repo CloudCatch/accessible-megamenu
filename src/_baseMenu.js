@@ -877,11 +877,11 @@ class BaseMenu {
    * @protected
    */
   _handleFocus() {
-    this.elements.menuItems.forEach((menuItem, index) => {
-      menuItem.dom.link.addEventListener("focus", () => {
-        this.focusState = "self";
-        this.currentChild = index;
-      });
+    // this.elements.menuItems.forEach((menuItem, index) => {
+    //   menuItem.dom.link.addEventListener("focus", () => {
+    //     this.focusState = "self";
+    //     this.currentChild = index;
+    //   });
     });
   }
 
