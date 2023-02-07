@@ -882,7 +882,7 @@ class BaseMenu {
     //     this.focusState = "self";
     //     this.currentChild = index;
     //   });
-    });
+    // });
   }
 
   /**
