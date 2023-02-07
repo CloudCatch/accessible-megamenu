@@ -877,12 +877,12 @@ class BaseMenu {
    * @protected
    */
   _handleFocus() {
-    // this.elements.menuItems.forEach((menuItem, index) => {
-    //   menuItem.dom.link.addEventListener("focus", () => {
-    //     this.focusState = "self";
-    //     this.currentChild = index;
-    //   });
-    // });
+    this.elements.menuItems.forEach((menuItem, index) => {
+      menuItem.dom.link?.addEventListener("focus", () => {
+        this.focusState = "self";
+        this.currentChild = index;
+      });
+    });
   }
 
   /**
@@ -920,7 +920,7 @@ class BaseMenu {
 
     this.elements.menuItems.forEach((item, index) => {
       // Properly focus the current menu item.
-      item.dom.link.addEventListener(
+      item.dom.link?.addEventListener(
         "pointerdown",
         () => {
           this.currentEvent = "mouse";
@@ -932,7 +932,7 @@ class BaseMenu {
 
       // Properly toggle submenus open and closed.
       if (item.isSubmenuItem) {
-        item.elements.toggle.dom.toggle.addEventListener(
+        item.elements.toggle.dom.toggle?.addEventListener(
           "pointerup",
           (event) => {
             this.currentEvent = "mouse";
@@ -944,7 +944,7 @@ class BaseMenu {
 
     // Open the this menu if it's controller is clicked.
     if (this.isTopLevel && this.elements.controller) {
-      this.elements.controller.dom.toggle.addEventListener(
+      this.elements.controller.dom.toggle?.addEventListener(
         "pointerup",
         (event) => {
           this.currentEvent = "mouse";
@@ -999,7 +999,7 @@ class BaseMenu {
    */
   _handleHover() {
     this.elements.menuItems.forEach((menuItem, index) => {
-      menuItem.dom.link.addEventListener("pointerenter", (event) => {
+      menuItem.dom.link?.addEventListener("pointerenter", (event) => {
         // Exit out of the event if it was not made by a mouse.
         if (event.pointerType === "pen" || event.pointerType === "touch") {
           return;
@@ -1031,7 +1031,7 @@ class BaseMenu {
       });
 
       if (menuItem.isSubmenuItem) {
-        menuItem.dom.item.addEventListener("pointerleave", (event) => {
+        menuItem.dom.item?.addEventListener("pointerleave", (event) => {
           // Exit out of the event if it was not made by a mouse.
           if (event.pointerType === "pen" || event.pointerType === "touch") {
             return;
@@ -1079,7 +1079,7 @@ class BaseMenu {
    */
   _handleKeydown() {
     if (this.isTopLevel && this.elements.controller) {
-      this.elements.controller.dom.toggle.addEventListener(
+      this.elements.controller.dom.toggle?.addEventListener(
         "keydown",
         (event) => {
           this.currentEvent = "keyboard";
@@ -1104,7 +1104,7 @@ class BaseMenu {
    */
   _handleKeyup() {
     if (this.isTopLevel && this.elements.controller) {
-      this.elements.controller.dom.toggle.addEventListener("keyup", (event) => {
+      this.elements.controller.dom.toggle?.addEventListener("keyup", (event) => {
         this.currentEvent = "keyboard";
 
         const key = keyPress(event);
@@ -1258,7 +1258,7 @@ class BaseMenu {
       menuItem.blur();
 
       if (menuItem.isSubmenuItem) {
-        menuItem.elements.childMenu.blurChildren();
+        menuItem.elements.childMenu?.blurChildren();
       }
     });
   }
