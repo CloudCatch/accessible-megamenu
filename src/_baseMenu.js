@@ -151,6 +151,15 @@ class BaseMenu {
   _currentChild = 0;
 
   /**
+   * The index of the currently hovered  {@link BaseMenuItem|menu item} in the menu.
+   * 
+   * @protected
+   * 
+   * @type {number}
+   */
+  _currentlyHovering = null;
+
+  /**
    * The current state of the menu's focus.
    *
    * @protected
@@ -999,6 +1008,14 @@ class BaseMenu {
    */
   _handleHover() {
     this.elements.menuItems.forEach((menuItem, index) => {
+      menuItem.elements.childMenu?.dom?.menu?.addEventListener("pointerenter", (event) => {
+        this._currentlyHovering = event.target;
+      });
+
+      menuItem.elements.childMenu?.dom?.menu?.addEventListener("pointerleave", (event) => {
+        this._currentlyHovering = null;
+      });
+
       menuItem.dom.link?.addEventListener("pointerenter", (event) => {
         // Exit out of the event if it was not made by a mouse.
         if (event.pointerType === "pen" || event.pointerType === "touch") {
@@ -1040,8 +1057,10 @@ class BaseMenu {
           if (this.hoverType === "on") {
             if (this.hoverDelay > 0) {
               setTimeout(() => {
-                this.currentEvent = "mouse";
-                menuItem.elements.toggle.close();
+                if (null === this._currentlyHovering) {
+                  this.currentEvent = "mouse";
+                  menuItem.elements.toggle.close();
+                }
               }, this.hoverDelay);
             } else {
               this.currentEvent = "mouse";
